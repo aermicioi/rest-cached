@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.aermicioi.restcached.spring.blog.BlogStoreTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-20T19:18:52" hostname="aermicioi-laptop" time="0.248">
+  <properties/>
+  <testcase name="will properly set the cache" classname="io.aermicioi.restcached.spring.blog.BlogStoreTest" time="0.248"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

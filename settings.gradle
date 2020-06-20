@@ -1,0 +1,6 @@
+rootProject.name = 'rest-cached'
+include 'annotations'
+include 'spring'
+include 'core'
+include 'jpa'
+

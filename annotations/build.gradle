@@ -1,0 +1,6 @@
+plugins {
+    id 'java'
+}
+
+group 'io.aermicioi.restcached.annotations'
+version '1.0-SNAPSHOT'

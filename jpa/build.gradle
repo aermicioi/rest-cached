@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+group 'io.aermicioi.restcached'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    compile group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '2.2.3'
+    compile project(':core')
+}
