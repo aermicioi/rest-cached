@@ -2,24 +2,16 @@ package io.aermicioi.restcached.spring;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Streams;
 import com.google.common.primitives.Ints;
-import com.google.common.primitives.Longs;
 import io.aermicioi.restcached.annotations.ETag;
-import io.aermicioi.restcached.annotations.Key;
 import io.aermicioi.restcached.core.ETagStore;
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 

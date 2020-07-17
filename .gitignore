@@ -3,3 +3,7 @@ gradlew.bat
 .gradle
 .idea
 gradle
+annotations/build
+core/build
+jpa/build
+spring/build

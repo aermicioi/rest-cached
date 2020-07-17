@@ -1,11 +1,18 @@
 plugins {
-    id 'java'
+    id 'maven-publish'
 }
 
 group 'io.aermicioi.restcached'
 version '1.0-SNAPSHOT'
 
-allprojects {
+subprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+publishing {
     repositories {
         mavenLocal()
         mavenCentral()

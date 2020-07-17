@@ -1,35 +1,48 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'groovy'
+    id 'maven-publish'
 }
 
-group 'io.aermicioi.restcached.spring'
-version '1.0-SNAPSHOT'
+group 'io.aermicioi.restcached'
+version rootProject.version
 
+java {
+    modularity.inferModulePath = true
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
 dependencies {
-    compile group: 'org.springframework', name: 'spring-core', version: '5.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-beans', version: '5.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-context', version: '5.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-aop', version: '5.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-expression', version: '5.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-web', version: '5.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.2.6.RELEASE'
-    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.5'
-    compile group: 'javax.inject', name: 'javax.inject', version: '1'
-    compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
-    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    implementation group: 'com.google.guava', name: 'guava', version: '29.0-jre'
 
-    compile project(':core')
+    api project(':core')
+    api group: 'jakarta.inject', name: 'jakarta.inject-api', version: '2.0.0'
+    api group: 'org.springframework', name: 'spring-web', version: '5.2.6.RELEASE'
+    api group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.5'
 
-    testCompile group: 'org.spockframework', name: 'spock-spring', version: '2.0-M2-groovy-3.0'
-    testCompile group: 'org.springframework', name:'spring-test', version:'4.3.2.RELEASE'
-    testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '4.0.4'
 
+    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.0-M2-groovy-3.0'
+    testImplementation group: 'org.springframework', name:'spring-test', version:'4.3.2.RELEASE'
 }
 
 test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
+    }
+}
+
+publishing {
+    publications {
+        spring(MavenPublication) {
+            from components.java
+        }
     }
 }

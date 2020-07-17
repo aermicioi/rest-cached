@@ -1,6 +1,26 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
 }
 
-group 'io.aermicioi.restcached.annotations'
-version '1.0-SNAPSHOT'
+group 'io.aermicioi.restcached'
+version rootProject.version
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+publishing {
+    publications {
+        annotations(MavenPublication) {
+            from components.java
+        }
+    }
+}

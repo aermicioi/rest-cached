@@ -2,13 +2,13 @@ package io.aermicioi.restcached.spring;
 
 import io.aermicioi.restcached.annotations.cachecontrol.*;
 import io.aermicioi.restcached.core.CacheControlBuilder;
+import jakarta.inject.Provider;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.http.HttpHeaders;
 
-import javax.inject.Provider;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
