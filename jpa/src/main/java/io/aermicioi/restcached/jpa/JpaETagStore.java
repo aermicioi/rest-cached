@@ -26,13 +26,16 @@ public class JpaETagStore implements ETagStore {
     @Override
     public boolean set(@NotNull byte[] tag, @NotNull Collection<Object> keys) {
         ETag eTag = Optional.ofNullable(manager.find(ETag.class, keys.hashCode()))
-                            .orElseGet(ETag::new);
+                            .orElse(null);
 
-        if (Arrays.equals(tag, eTag.getTag())) {
+        if (eTag != null && Arrays.equals(tag, eTag.getTag())) {
             return false;
         }
 
-        eTag.setTag(tag);
+        if (eTag == null) {
+            eTag = new ETag(keys.hashCode(), tag);
+        }
+
         manager.merge(eTag);
 
         return true;

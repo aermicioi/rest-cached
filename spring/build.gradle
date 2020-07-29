@@ -23,13 +23,15 @@ dependencies {
 
     api project(':core')
     api group: 'jakarta.inject', name: 'jakarta.inject-api', version: '2.0.0'
-    api group: 'org.springframework', name: 'spring-web', version: '5.2.6.RELEASE'
+    api group: 'org.springframework', name: 'spring-web', version: '5.2.7.RELEASE'
     api group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.5'
 
     compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '4.0.4'
 
+    testImplementation group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '4.0.4'
     testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.0-M2-groovy-3.0'
-    testImplementation group: 'org.springframework', name:'spring-test', version:'4.3.2.RELEASE'
+    testImplementation group: 'org.springframework', name:'spring-test', version:'5.2.7.RELEASE'
+    testImplementation group: 'org.springframework', name:'spring-aop', version:'5.2.7.RELEASE'
 }
 
 test {

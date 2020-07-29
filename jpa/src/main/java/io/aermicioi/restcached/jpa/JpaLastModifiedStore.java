@@ -27,13 +27,16 @@ public class JpaLastModifiedStore implements LastModifiedStore {
     @Override
     public boolean set(@NotNull Instant at, @NotNull Collection<Object> keys) {
         LastModified lastModified = Optional.ofNullable(manager.find(LastModified.class, keys.hashCode()))
-                            .orElseGet(LastModified::new);
+                            .orElse(null);
 
-        if (at.equals(lastModified.getInstant())) {
+        if (lastModified != null && at.equals(lastModified.getInstant())) {
             return false;
         }
 
-        lastModified.setInstant(at);
+        if (lastModified == null) {
+            lastModified = new LastModified(keys.hashCode(), at);
+        }
+
         manager.merge(lastModified);
 
         return true;

@@ -1,5 +1,6 @@
 plugins {
     id 'java-library'
+    id 'groovy'
     id 'maven-publish'
 }
 
@@ -9,6 +10,8 @@ version rootProject.version
 dependencies {
     api group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '2.2.3'
     api project(':core')
+
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-M3-groovy-3.0'
 }
 
 java {
@@ -16,6 +19,14 @@ java {
     withJavadocJar()
     withSourcesJar()
 }
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 
 javadoc {
     if (JavaVersion.current().isJava9Compatible()) {
