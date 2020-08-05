@@ -11,7 +11,7 @@ class JpaETagStoreTest extends Specification {
 
     private JpaETagStore jpaETagStore = new JpaETagStore(manager)
 
-    Shall "manager storing and fetching of etags"() {
+    Shall "manager storing and fetching of ETags"() {
         given: 'a tag with key'
         Collection<Object> key =  ['majestic', 20, 'keys']
         byte[] tag = [1, 1, 1, 1]

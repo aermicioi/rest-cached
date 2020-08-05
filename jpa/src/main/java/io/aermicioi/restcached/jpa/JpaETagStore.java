@@ -2,11 +2,14 @@ package io.aermicioi.restcached.jpa;
 
 import io.aermicioi.restcached.core.ETagStore;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Jpa storage of ETags by associated keys
+ */
 public class JpaETagStore implements ETagStore {
 
     @NotNull
@@ -17,27 +20,35 @@ public class JpaETagStore implements ETagStore {
     }
 
     @Override
-    public byte[] get(@NotNull Collection<Object> keys) {
+    public byte[] get(@NotNull List<Object> keys) {
         return Optional.ofNullable(manager.find(ETag.class, keys.hashCode()))
-                       .map(ETag::getTag)
+                       .map(ETag::getETag)
                        .orElse(null);
     }
 
     @Override
-    public boolean set(@NotNull byte[] tag, @NotNull Collection<Object> keys) {
-        ETag eTag = Optional.ofNullable(manager.find(ETag.class, keys.hashCode()))
+    public boolean set(@NotNull byte[] tag, @NotNull List<Object> keys) {
+        ETag ETag = Optional.ofNullable(manager.find(ETag.class, keys.hashCode()))
                             .orElse(null);
 
-        if (eTag != null && Arrays.equals(tag, eTag.getTag())) {
+        if (ETag != null && Arrays.equals(tag, ETag.getETag())) {
             return false;
         }
 
-        if (eTag == null) {
-            eTag = new ETag(keys.hashCode(), tag);
+        if (ETag == null) {
+            ETag = new ETag(keys.hashCode(), tag);
         }
 
-        manager.merge(eTag);
+        manager.merge(ETag);
 
         return true;
+    }
+
+    @Override
+    public boolean delete(@NotNull List<Object> keys) {
+        Optional<ETag> eTag = Optional.ofNullable(manager.find(ETag.class, keys.hashCode()));
+        eTag.ifPresent(manager::remove);
+
+        return eTag.isPresent();
     }
 }

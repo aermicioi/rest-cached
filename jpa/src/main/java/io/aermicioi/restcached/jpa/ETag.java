@@ -1,11 +1,13 @@
 package io.aermicioi.restcached.jpa;
 
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+/**
+ * ETag entry which associates ETag to a hash of an object.
+ */
 @Entity
 class ETag {
 
@@ -13,30 +15,51 @@ class ETag {
     private int hash;
 
     @NotNull
-    private byte[] tag;
+    private byte[] eTag;
 
     private ETag() {
     }
 
-    public ETag(int hash, @NotNull byte[] tag) {
+    /**
+     * Construct ETag with hash & tag
+     * @param hash used to identify tag
+     * @param eTag tag associated to hash
+     */
+    public ETag(int hash, @NotNull byte[] eTag) {
         this.hash = hash;
-        this.tag = tag;
+        this.eTag = eTag;
     }
 
+    /**
+     * Get hash associated to tag
+     * @return hash associated to tag
+     */
     public int getHash() {
         return hash;
     }
 
+    /**
+     * Set hash associated to tag
+     * @param hash associated to tag
+     */
     public void setHash(int hash) {
         this.hash = hash;
     }
 
-    public byte[] getTag() {
-        return tag;
+    /**
+     * Get ETag.
+     * @return ETag
+     */
+    public byte[] getETag() {
+        return eTag;
     }
 
-    public void setTag(byte[] tag) {
-        this.tag = tag;
+    /**
+     * Set ETag
+     * @param eTag new ETag value
+     */
+    public void setETag(byte[] eTag) {
+        this.eTag = eTag;
     }
 
     @Override
@@ -47,8 +70,8 @@ class ETag {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ETag eTag = (ETag) o;
-        return hash == eTag.hash;
+        ETag ETag = (ETag) o;
+        return hash == ETag.hash;
     }
 
     @Override

@@ -6,5 +6,6 @@ module io.aermicioi.restcached.spring {
     requires transitive io.aermicioi.restcached.core;
     requires java.servlet;
     requires jakarta.inject;
+    requires spring.core;
     opens io.aermicioi.restcached.spring;
 }

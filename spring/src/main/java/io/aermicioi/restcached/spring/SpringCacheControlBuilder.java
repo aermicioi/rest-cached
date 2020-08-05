@@ -1,13 +1,23 @@
 package io.aermicioi.restcached.spring;
 
-import io.aermicioi.restcached.annotations.cachecontrol.*;
+import io.aermicioi.restcached.annotations.cachecontrol.MaxAge;
+import io.aermicioi.restcached.annotations.cachecontrol.MustRevalidate;
+import io.aermicioi.restcached.annotations.cachecontrol.NoCache;
+import io.aermicioi.restcached.annotations.cachecontrol.NoStore;
+import io.aermicioi.restcached.annotations.cachecontrol.NoTransform;
+import io.aermicioi.restcached.annotations.cachecontrol.Private;
+import io.aermicioi.restcached.annotations.cachecontrol.ProxyRevalidate;
+import io.aermicioi.restcached.annotations.cachecontrol.Public;
+import io.aermicioi.restcached.annotations.cachecontrol.SMaxAge;
 import io.aermicioi.restcached.core.CacheControlBuilder;
-import org.springframework.http.CacheControl;
-
-import javax.validation.constraints.NotNull;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import javax.validation.constraints.NotNull;
+import org.springframework.http.CacheControl;
 
+/**
+ * Builder of Cache-Control header that delegates {@link CacheControl} for actual building of header value.
+ */
 public class SpringCacheControlBuilder implements CacheControlBuilder {
 
     @NotNull

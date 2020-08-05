@@ -2,6 +2,7 @@ package io.aermicioi.restcached.spring.pet;
 
 import io.aermicioi.restcached.annotations.ETag;
 import io.aermicioi.restcached.annotations.Key;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
@@ -18,13 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class PetStore {
 
     @NotNull
-    private Map<String, Pet> pets = new HashMap<>();
+    private final Map<String, Pet> pets = new HashMap<>();
 
     public PetStore() {
     }
 
     public PetStore(@NotNull Map<String, Pet> pets) {
         this.pets.putAll(pets);
+    }
+
+    public Collection<Pet> findPets() {
+        return pets.values();
     }
 
     @GetMapping("/{:name}")

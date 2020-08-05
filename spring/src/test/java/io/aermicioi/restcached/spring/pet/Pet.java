@@ -29,7 +29,7 @@ public final class Pet {
     return type;
   }
 
-  public long getAge() {
+  public long gETage() {
     return age;
   }
 

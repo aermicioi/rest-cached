@@ -2,8 +2,7 @@ package io.aermicioi.restcached.jpa;
 
 import io.aermicioi.restcached.core.LastModifiedStore;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
@@ -18,14 +17,14 @@ public class JpaLastModifiedStore implements LastModifiedStore {
     }
 
     @Override
-    public Instant get(@NotNull Collection<Object> keys) {
+    public Instant get(@NotNull List<Object> keys) {
         return Optional.ofNullable(manager.find(LastModified.class, keys.hashCode()))
                        .map(LastModified::getInstant)
                        .orElse(null);
     }
 
     @Override
-    public boolean set(@NotNull Instant at, @NotNull Collection<Object> keys) {
+    public boolean set(@NotNull Instant at, @NotNull List<Object> keys) {
         LastModified lastModified = Optional.ofNullable(manager.find(LastModified.class, keys.hashCode()))
                             .orElse(null);
 
@@ -40,5 +39,15 @@ public class JpaLastModifiedStore implements LastModifiedStore {
         manager.merge(lastModified);
 
         return true;
+    }
+
+    @Override
+    public boolean delete(@NotNull List<Object> keys) {
+        Optional<LastModified> lastModified = Optional.ofNullable(manager.find(LastModified.class,
+                                                                               keys.hashCode()));
+
+        lastModified.ifPresent(manager::remove);
+
+        return lastModified.isPresent();
     }
 }

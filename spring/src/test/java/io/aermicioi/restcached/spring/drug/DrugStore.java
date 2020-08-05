@@ -1,8 +1,8 @@
 package io.aermicioi.restcached.spring.drug;
 
-import io.aermicioi.restcached.annotations.ETag;
 import io.aermicioi.restcached.annotations.Key;
 import io.aermicioi.restcached.annotations.LastModified;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
@@ -14,18 +14,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/pet")
+@RequestMapping("/drug")
 @RestController
 public class DrugStore {
 
     @NotNull
-    private Map<String, Drug> drugs = new HashMap<>();
+    private final Map<String, Drug> drugs = new HashMap<>();
 
     public DrugStore() {
     }
 
     public DrugStore(@NotNull Map<String, Drug> drugs) {
         this.drugs.putAll(drugs);
+    }
+
+    @GetMapping
+    @LastModified
+    public Collection<Drug> findDrugs() {
+        return drugs.values();
     }
 
     @GetMapping("/{:name}")

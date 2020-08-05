@@ -1,7 +1,6 @@
 package io.aermicioi.restcached.spring.blog;
 
 import io.aermicioi.restcached.annotations.Key;
-import io.aermicioi.restcached.annotations.LastModified;
 import io.aermicioi.restcached.annotations.cachecontrol.MaxAge;
 import io.aermicioi.restcached.annotations.cachecontrol.MustRevalidate;
 import io.aermicioi.restcached.annotations.cachecontrol.NoCache;
@@ -22,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/pet")
+@RequestMapping("/blog")
 @RestController
 public class BlogStore {
 
     @NotNull
-    private Map<String, Blog> blogs = new HashMap<>();
+    private final Map<String, Blog> blogs = new HashMap<>();
 
     public BlogStore() {
     }
